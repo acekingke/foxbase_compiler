@@ -1,0 +1,6 @@
+# Object files
+*.o
+*.pyc
+.vscode
+__pycache__
+*.ll
