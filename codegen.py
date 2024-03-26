@@ -48,7 +48,7 @@ class CodeGen():
         #self.builder.position_at_end(self.block)        
         self.builder.ret_void()
         llvm_ir = str(self.module)
-        print(llvm_ir)
+        #print(llvm_ir)
         mod = self.binding.parse_assembly(llvm_ir)
         mod.verify()
         # Now add the module and make sure it is ready for execution
@@ -63,3 +63,14 @@ class CodeGen():
     def save_ir(self, filename):
         with open(filename, 'w') as output_file:
             output_file.write(str(self.module))
+
+    def run_ir(self):
+        # Obtain a pointer to the compiled 'main' - it's the address of its JITed code in memory.
+        main_ptr = self.engine.get_function_address("main")
+        # To convert an address to an actual callable thing we have to use CFUNCTYPE,
+        # and specify the arguments & return type.
+        from ctypes import CFUNCTYPE, c_int
+        cfunc = CFUNCTYPE(c_int)(main_ptr)
+        # Now 'cfunc' is an actual callable we can invoke
+        res = cfunc()
+        #print("exit:", res)

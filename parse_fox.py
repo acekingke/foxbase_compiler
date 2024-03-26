@@ -1,10 +1,11 @@
 #-*_ coding:utf-8 -*-
 __author__ = 'kyc'
 from lex import lg
+import warnings
 from rply import ParserGenerator
 import fox_ast as ast
 from err import  *
-
+warnings.filterwarnings("ignore", category=Warning)
 pg = ParserGenerator([i.name for i in lg.rules],
         precedence=[("right", ["OR"]),("right",["AND"]),("right",["NOT"]),
                     ("left",["GT","GE","LT","LE"]),

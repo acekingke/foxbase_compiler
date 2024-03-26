@@ -1,25 +1,51 @@
-# 安装
+# the grammar of the language
 
-python3.7
+It's a subset of foxbase language.
+
+## Assign variable
+
+```
+A = 1
+```
+## print variable
+```
+? A
+```
+## expression
+It supports add, sub, mult, div
+
+## loop
+```
+for i=1 to 100
+    ? i
+endfor
+```
+# Install
+
+python >= 3.7
 
 ```
 pip install rply
-pip install llvmlite==2.66.0
+pip install llvmlite
 ```
 
-# 运行
+# compile it 
+
+It generates llvm ir file, then you can use clang to compile it.
+```
+python3 main.py --build examples/hello.prg
+```
+Then it generates hello.prg.ll in `examples` folder
+
+```shell
+clang -o hello hello.prg.ll
+./hello
+hello the world
+```
+# run it immediately
 
 ```
-py main.py
+python3 main.py --run examples/hello.prg
+python3 main.py --run examples/fib.prg
 ```
-
-生成hello.ll
-
-windows下
-
-`clang -o main.exe hello.ll`
-
-mac
-
-`clang -o main hello.ll`
 

@@ -39,8 +39,8 @@ def exec_exit_cmd(cmd):
     return "EXIT"
 def exec_expr(expr):
     if expr.type == "STRING":
-        value = ir.Constant(ir.ArrayType(ir.IntType(8), len(expr.val)),
-                            bytearray(expr.val.encode("utf8")))
+        value = ir.Constant(ir.ArrayType(ir.IntType(8), len(expr.val)+1),
+                            bytearray((expr.val+'\0').encode("utf8")))
         return value
     elif expr.type == "NUMBER":
         if expr.subtype == "INT":
@@ -266,12 +266,12 @@ def exec_for_cmd(cmd):
 
 #  need support loop and exit
 def exec_while_cmd(cmd):
-   pass
+    raise ParserError("while does not suport now")
 
 def exec_func_cmd(cmd):
-    pass
+    raise ParserError("func does not suport now")
 def  exec_do_cmd(cmd):
-    pass
+    raise ParserError("do does not suport now")
 def exec_accept_cmd(cmd):
-   pass
+   raise ParserError("accept does not suport now")
 
